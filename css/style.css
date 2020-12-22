@@ -1,0 +1,130 @@
+body{
+    margin:0px;
+    padding: 0px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color:whitesmoke;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+ul{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+}
+
+nav{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    background-color: white;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 100;
+}
+
+.logo img{
+    height: 35px;
+}
+
+nav .menu{
+    display: flex;
+}
+
+nav .menu li a{
+    height: 40px;
+    line-height: 43px;
+    margin: 0px;
+    padding: 0px 22px;
+    display: flex;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.05ch;
+    color: black;
+}
+
+.search{
+    width: 250px;
+    height: 30px;
+    background-color: whitesmoke;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 20px;
+}
+
+.search input{
+    width: 100%;
+    height: 25px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+nav .menu li a:hover{
+    font-weight: bold;
+    font-style: italic;
+}
+
+.login{
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.05ch;
+    color: black;
+    text-decoration: none;
+    padding: 10px;
+    border: 1px solid #000000;
+}
+.login:hover{
+    color: white;
+    background-color: black;
+}
+
+.signup{
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.05ch;
+    color: black;
+    text-decoration: none;
+    padding: 10px;
+    border: 1px solid #000000;
+}
+.signup:hover{
+    color: white;
+    background-color: black;
+}
+
+#main{
+    padding-top: 80px;
+}
+
+.recom-box{
+    width: 430px;
+    height: 250px;
+    box-shadow: 5px 10px 30px rgba(0,0,0,0.3);
+    margin: 0px 20px 10px 20px;
+    overflow: hidden;
+}
+
+.recom-heading{
+    padding-left: 30px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+
+}
+
+.recom-box img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+
+}
