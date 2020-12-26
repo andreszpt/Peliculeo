@@ -72,6 +72,11 @@ nav .menu li a:hover{
     font-style: italic;
 }
 
+.session *{
+    padding: 20px 20px;
+    box-sizing: border-box;
+}
+
 .login{
     font-size: 0.8rem;
     font-weight: 500;
@@ -84,6 +89,20 @@ nav .menu li a:hover{
 .login:hover{
     color: white;
     background-color: black;
+}
+
+.logout{
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.05ch;
+    color: rgb(133, 0, 0);
+    text-decoration: none;
+    padding: 10px;
+    border: 1px solid rgb(133, 0, 0);
+}
+.logout:hover{
+    color: white;
+    background-color: rgb(133, 0, 0);
 }
 
 .signup{
@@ -127,4 +146,10 @@ nav .menu li a:hover{
     object-fit: cover;
     object-position: top;
 
+}
+
+
+img.main-div{
+    width: 40px;
+    height: 30px;
 }
