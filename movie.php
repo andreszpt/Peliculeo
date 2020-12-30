@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,18 +18,27 @@
             <img src="images/Peliculeo.png">
         </a>
         <ul class="menu">
-            <li><a href="index.html">Home</a></li>
+            <li><a href="index.php">Home</a></li>
             <li><a href="azmovies.php?id=a">A-Z movies</a></li>
-            <li><a href="genres.html">Genres</a></li>
-            <li><a href="ranking.html">Ranking</a></li>
+            <li><a href="genres.php">Genres</a></li>
+            <li><a href="ranking.php">Ranking</a></li>
         </ul>
         <div class="search">
             <input type="text" placeholder="Search...">
             <i class="fas fa-search"></i>
         </div>
         <div class="session">
-            <a href="login.html" class="login">Log in</a>
-            <a href="signup.html" class="signup">Sign up</a>
+            <?php
+            if(isset($_SESSION['name']))
+            {
+                echo "<p> Bienvenido/a, ".$_SESSION['name']."</p>";
+                echo "<a href='logout.php' class='logout'>Log out</a>";
+            }
+            else
+            {
+                echo '<a href="login.php" class="login">Log in</a>';
+                echo '<a href="signup.php" class="signup">Sign up</a>';
+            }?>
         </div>        
     </nav>
     <section id="main">
@@ -75,9 +87,9 @@
             die();
         };
 
-        $id = $_GET['id'];
+        $id_movie = $_GET['id'];
 
-        $query = "SELECT * FROM movie WHERE movie.id = '$id' ";
+        $query = "SELECT * FROM movie WHERE movie.id = '$id_movie' ";
 
         $result=$pdo->query($query);
         $l=$result->fetch(PDO::FETCH_ASSOC);
@@ -88,12 +100,7 @@
         echo '<img src="images/'.$l['url_pic'].'">';
 
 
-
-
-
-
-
-        $query = "SELECT * FROM moviegenre, genre WHERE moviegenre.movie_id = '$id' AND moviegenre.genre=genre.id";
+        $query = "SELECT * FROM moviegenre, genre WHERE moviegenre.movie_id = '$id_movie' AND moviegenre.genre=genre.id";
 
         $result=$pdo->query($query);
         $l=$result->fetch(PDO::FETCH_ASSOC);
@@ -106,17 +113,80 @@
         
 
 
-        $query = "SELECT * FROM moviecomments, users WHERE movie_id = '$id' AND moviecomments.user_id=users.id";
-
+        $query = "SELECT * FROM moviecomments, users WHERE movie_id = '$id_movie' AND moviecomments.user_id=users.id";
         $result=$pdo->query($query);
         $l=$result->fetch(PDO::FETCH_ASSOC);
-
         echo "<p>Comments: </p>";
         while ($l=$result->fetch(PDO::FETCH_ASSOC)) {        
             echo "<p>".$l['name']." wrote: ".$l['comment']."</p>";
         }
+        echo "<br><br>";
 
         ?>
+
+        <form action="comment-handler.php" method="post">
+            <p>Introduce your comment: </p> 
+
+            <?php if (isset($_GET['error'])) { ?>
+     		<p class="error"><?php echo $_GET['error']; ?></p>
+     	    <?php } ?>
+
+             <?php if (isset($_GET['success'])) { ?>
+               <p class="success"><?php echo $_GET['success']; ?></p>
+            <?php } ?>
+
+            <input type="text" name="comment">
+
+            <?php
+            echo '<input type="hidden" name="id_movie" value='.$_GET['id'].'>';
+            ?>
+
+            <input type="submit" value="Send">
+        </form>
+
+        <?php
+        $id_user = $_SESSION['id'];
+        $query = "SELECT * FROM user_score WHERE id_movie = '$id_movie' AND id_user = '$id_user'";
+
+        $result=$pdo->query($query);
+        $l=$result->fetch(PDO::FETCH_ASSOC);
+
+        if (isset($l['score'])){
+            echo "Your rating: ".$l['score'];
+        }
+        echo "<br><br>";
+        ?>
+
+        <form action="rating-handler.php" method="post">
+            <p>Introduce your rating: </p> 
+
+            <?php if (isset($_GET['error'])) { ?>
+     		<p class="error"><?php echo $_GET['error']; ?></p>
+     	    <?php } ?>
+
+             <?php if (isset($_GET['success'])) { ?>
+               <p class="success"><?php echo $_GET['success']; ?></p>
+            <?php } ?>
+
+            <input type="radio" name="score" id="0" value="0">
+            <label for="0">0</label>
+            <input type="radio" name="score" id="1" value="1">
+            <label for="1">1</label>
+            <input type="radio" name="score" id="2" value="2">
+            <label for="2">2</label>
+            <input type="radio" name="score" id="3" value="3">
+            <label for="3">3</label>
+            <input type="radio" name="score" id="4" value="4">
+            <label for="4">4</label>
+            <input type="radio" name="score" id="5" value="5">
+            <label for="5">5</label>
+
+            <?php
+            echo '<input type="hidden" name="id_movie" value='.$_GET['id'].'>';
+            ?>
+
+            <input type="submit" value="Send">
+        </form>
         
             
         </div>

@@ -66,14 +66,8 @@ if (isset($_POST['name']) && isset($_POST['age'])
            	 header("Location: signup.php?success=Your account has been created successfully");
 	         exit();
            }else {
-               echo $name;
-               echo $age;
-               echo $sex;
-               echo $ocupacion;
-               echo $picture;
-               echo $pass;
-	           	//header("Location: signup.php?error=unknown error occurred");
-		        //exit();
+	           	header("Location: signup.php?error=unknown error occurred");
+		        exit();
            }
 		}
 	}
