@@ -1,6 +1,7 @@
 <?php
     session_start();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,37 +11,12 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" href="images/popcorn.ico" type="image/x-icon">
     <script src="https://kit.fontawesome.com/f07079c6e3.js" crossorigin="anonymous"></script>
-
+    <?php include("sqlFunctions.php"); ?>
+    <?php include("phpFunctions.php"); ?>
 </head>
 <body>
-    <nav>
-        <a href="#" class="logo">
-            <img src="images/Peliculeo.png">
-        </a>
-        <ul class="menu">
-        <li><a href="index.php">Home</a></li>
-            <li><a href="azmovies.php?id=a">A-Z movies</a></li>
-            <li><a href="genres.php">Genres</a></li>
-            <li><a href="ranking.php">Ranking</a></li>
-        </ul>
-        <div class="search">
-            <input type="text" placeholder="Search...">
-            <i class="fas fa-search"></i>
-        </div>
-        <div class="session">
-        <?php
-            if(isset($_SESSION['name']))
-            {
-                echo "<p> Bienvenido/a, ".$_SESSION['name']."</p>";
-                echo "<a href='logout.php' class='logout'>Log out</a>";
-            }
-            else
-            {
-                echo '<a href="login.php" class="login">Log in</a>';
-                echo '<a href="signup.php" class="signup">Sign up</a>';
-            }?>
-        </div>        
-    </nav>
+    <?php include("menu.php"); ?>
+
     <section id="main">
         <h1 class="">A-Z Movies</h1>
         <div id="up">
@@ -78,7 +54,6 @@
         </div>
         <div class="main-div">
         <?php
-
         try{
             $pdo=new PDO('mysql:host=localhost;dbname=ai57', 'root', '1234');
 
@@ -86,29 +61,36 @@
             echo 'Connection failed: ' . $e->getMessage();
             die();
         };
-
-
-        function meanscores($scores){
-            $sum = array_sum($scores);
-            $total_scores = count($scores);
-            $mean = $sum/$total_scores;
-            return $mean;
-        };
+        
 
         $query="SELECT * FROM movie, user_score WHERE title LIKE '".$_GET['id']."%' AND movie.id=user_score.id_movie";
 
         $result=$pdo->query($query);
         $l=$result->fetch(PDO::FETCH_ASSOC);
+        
+        
+
 
         echo "<table>";
         while ($l=$result->fetch(PDO::FETCH_ASSOC)) {
+            //$puntuaciones=calculaPuntuaciones($l["id"]);
+            //$ponderada=$puntuaciones["ponderada"];
+		    //$numero_votos=$puntuaciones['numero'];
             echo '<tr>';
-            echo '<td><img src="images/'.$l['url_pic'].'"></td>';
+            if(file_exists('images/'.$l["url_pic"]))
+            {
+                echo '<td><img src="images/'.$l['url_pic'].'"></td>';
+            }
+            else
+            {
+                echo '<td><img src="images/Image-Not-Available.png"></td>';
+            }
             echo '<td><a href="movie.php?id='.$l['id'].'">'.$l['title'].'</a></td>';
             echo '<td>'.$l['desc'].'</td>';
             echo '<td>'.$l['date'].'</td>';
             echo '<td>'.$l['score'].'</td>';
-            //echo '<td>'. meanscores($l['score']) .'</td>';
+            //echo '<td>'. $numero_votos .'</td>';
+            //echo '<td>'. $ponderada .'</td>';
             
             echo '</tr>';
         }
@@ -121,3 +103,4 @@
 
 </body>
 </html>
+

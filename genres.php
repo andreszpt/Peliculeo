@@ -13,34 +13,7 @@
 
 </head>
 <body>
-    <nav>
-        <a href="#" class="logo">
-            <img src="images/Peliculeo.png">
-        </a>
-        <ul class="menu">
-        <li><a href="index.php">Home</a></li>
-            <li><a href="azmovies.php?id=a">A-Z movies</a></li>
-            <li><a href="genres.php">Genres</a></li>
-            <li><a href="ranking.php">Ranking</a></li>
-        </ul>
-        <div class="search">
-            <input type="text" placeholder="Search...">
-            <i class="fas fa-search"></i>
-        </div>
-        <div class="session">
-        <?php
-            if(isset($_SESSION['name']))
-            {
-                echo "<p> Bienvenido/a, ".$_SESSION['name']."</p>";
-                echo "<a href='logout.php' class='logout'>Log out</a>";
-            }
-            else
-            {
-                echo '<a href="login.php" class="login">Log in</a>';
-                echo '<a href="signup.php" class="signup">Sign up</a>';
-            }?>
-        </div>        
-    </nav>
+    <?php include("menu.php"); ?>
     <section id="main">
         <h1 class="">Genres</h1>
         <div id="up">
@@ -84,12 +57,18 @@
 
 
         $result=$pdo->query($query);
-        $l=$result->fetch(PDO::FETCH_ASSOC);
 
         echo "<table>";
         while ($l=$result->fetch(PDO::FETCH_ASSOC)) {
             echo '<tr>';
-            echo '<td><img src="images/'.$l['url_pic'].'"></td>';
+            if(file_exists('images/'.$l["url_pic"]))
+            {
+                echo '<td><img src="images/'.$l['url_pic'].'"></td>';
+            }
+            else
+            {
+                echo '<td><img src="images/Image-Not-Available.png"></td>';
+            }
             echo '<td><a href="movie.php?id='.$l['id'].'">'.$l['title'].'</a></td>';
             echo '<td>'.$l['desc'].'</td>';
             echo '<td>'.$l['date'].'</td>';
