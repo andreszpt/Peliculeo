@@ -17,37 +17,7 @@
     <section id="main">
         <h1 class="">A-Z Movies</h1>
         <div id="up">
-            <a href="azmovies.php?id='">' </a>
-            <a href="azmovies.php?id=1">1 </a>
-            <a href="azmovies.php?id=2">2 </a>
-            <a href="azmovies.php?id=3">3 </a>
-            <a href="azmovies.php?id=8">8 </a>
-            <a href="azmovies.php?id=A">A </a>
-            <a href="azmovies.php?id=B">B </a>
-            <a href="azmovies.php?id=C">C </a>
-            <a href="azmovies.php?id=D">D </a>
-            <a href="azmovies.php?id=E">E </a>
-            <a href="azmovies.php?id=F">F </a>
-            <a href="azmovies.php?id=G">G </a>
-            <a href="azmovies.php?id=H">H </a>
-            <a href="azmovies.php?id=I">I </a>
-            <a href="azmovies.php?id=J">J </a>
-            <a href="azmovies.php?id=K">K </a>
-            <a href="azmovies.php?id=L">L </a>
-            <a href="azmovies.php?id=M">M </a>
-            <a href="azmovies.php?id=N">N </a>
-            <a href="azmovies.php?id=O">O </a>
-            <a href="azmovies.php?id=P">P </a>
-            <a href="azmovies.php?id=Q">Q </a>
-            <a href="azmovies.php?id=R">R </a>
-            <a href="azmovies.php?id=S">S </a>
-            <a href="azmovies.php?id=T">T </a>
-            <a href="azmovies.php?id=U">U </a>
-            <a href="azmovies.php?id=V">V </a>
-            <a href="azmovies.php?id=W">W </a>
-            <a href="azmovies.php?id=X">X </a>
-            <a href="azmovies.php?id=Y">Y </a>
-            <a href="azmovies.php?id=Z">Z </a>
+            <a href="azmovies.php?id=a"> Back </a>
         </div>
         <div class="main-div">
         <?php

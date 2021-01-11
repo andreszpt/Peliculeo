@@ -1,13 +1,11 @@
 <?php
 
-function calculaPuntuaciones($id_movie){
+function calculaPuntuaciones($id_movie, $pdo, $nFilms, $rFilms){
 	
 	$puntuaciones=array();
-	$datos=getDatosPuntuaciones($id_movie);
-	//reset($datos);
-	$puntuaciones["aritmetica"]=round($datos["ri"], 2, PHP_ROUND_HALF_UP);
+	$datos=getDatosPuntuaciones($id_movie, $pdo);
 	$puntuaciones["numero"]=$datos["ni"];
-	$puntuaciones["ponderada"]=round(($datos["N"]*$datos["R"]+$datos["ni"]*$datos["ri"])/($datos["N"]+$datos["ni"]), 2, PHP_ROUND_HALF_UP);
+	$puntuaciones["ponderada"]=round(($nFilms*$rFilms+$datos["ni"]*$datos["ri"])/($nFilms+$datos["ni"]), 2, PHP_ROUND_HALF_UP);
 	
     return $puntuaciones;
 }

@@ -72,7 +72,6 @@
             echo '<td><a href="movie.php?id='.$l['id'].'">'.$l['title'].'</a></td>';
             echo '<td>'.$l['desc'].'</td>';
             echo '<td>'.$l['date'].'</td>';
-            //echo '<td>'. meanscores($l['score']) .'</td>';
             
             echo '</tr>';
         }

@@ -1,5 +1,5 @@
 <?php 
-session_start(); 
+session_start();
 
 try{
     $pdo=new PDO('mysql:host=localhost;dbname=ai57', 'root', '1234');
@@ -21,12 +21,13 @@ if ($result) {
     header("Location: movie.php?id=".$id_movie."&success=Comment was sent");
     exit();
 }else {
-    echo " User: ".$id_user;
-    echo " Movie: ".$id_movie;
-    echo " Comment: ".$comment;
+    if (session_unset())
+    {
+        header("Location: movie.php?id=".$id_movie."&error=Log in to post a comment");
+        exit();
+    }
 
-    //header("Location: movie.php?error=unknown error occurred");
-    //exit();
+    
 }
 
 

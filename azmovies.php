@@ -63,19 +63,25 @@
         };
         
 
-        $query="SELECT * FROM movie, user_score WHERE title LIKE '".$_GET['id']."%' AND movie.id=user_score.id_movie";
-
+        $query="SELECT * FROM movie WHERE title LIKE '".$_GET['id']."%'";
         $result=$pdo->query($query);
-        $l=$result->fetch(PDO::FETCH_ASSOC);
         
-        
+        $infoPelis = getInfoPelis($pdo);
+        $nFilms = $infoPelis["N"];
+        $rFilms = $infoPelis["R"];
 
 
         echo "<table>";
+        echo "<th>Image</th>";
+        echo "<th>Title</th>";
+        echo "<th>Description</th>";
+        echo "<th>Date</th>";
+        echo "<th>Votes</th>";
+        echo "<th>Weighed score</th>";
         while ($l=$result->fetch(PDO::FETCH_ASSOC)) {
-            //$puntuaciones=calculaPuntuaciones($l["id"]);
-            //$ponderada=$puntuaciones["ponderada"];
-		    //$numero_votos=$puntuaciones['numero'];
+            $puntuaciones=calculaPuntuaciones($l["id"],$pdo, $nFilms, $rFilms);
+            $ponderada=$puntuaciones["ponderada"];
+		    $numero_votos=$puntuaciones['numero'];
             echo '<tr>';
             if(file_exists('images/'.$l["url_pic"]))
             {
@@ -88,14 +94,13 @@
             echo '<td><a href="movie.php?id='.$l['id'].'">'.$l['title'].'</a></td>';
             echo '<td>'.$l['desc'].'</td>';
             echo '<td>'.$l['date'].'</td>';
-            echo '<td>'.$l['score'].'</td>';
-            //echo '<td>'. $numero_votos .'</td>';
-            //echo '<td>'. $ponderada .'</td>';
+            echo '<td style="text-align: center;">'. $numero_votos .'</td>';
+            echo '<td style="text-align: center;">'. $ponderada .'</td>';
             
             echo '</tr>';
         }
-
         echo "</table>";
+        
         ?>
             
         </div>

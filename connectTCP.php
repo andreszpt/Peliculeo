@@ -38,11 +38,4 @@ function generateRecommendation($userid)
     return $success;
 }
 
-// terminar
-function idsRecomendations($userid)
-{
-    $recommendations = generateRecommendation($userid);
-    $idsRecommended = getIdsRecs($userid);
-    return $idsRecommended;
-}
 ?>
