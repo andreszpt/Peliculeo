@@ -10,6 +10,7 @@
     <title>Peliculeo</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" href="images/popcorn.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/f07079c6e3.js" crossorigin="anonymous"></script>
     <?php include("sqlFunctions.php"); ?>
     <?php include("phpFunctions.php"); ?>
@@ -17,9 +18,9 @@
 <body>
     <?php include("menu.php"); ?>
 
-    <section id="main">
+    <div id="main">
+    <br>
         <h1 class="">A-Z Movies</h1>
-        <div id="up">
             <a href="azmovies.php?id='">' </a>
             <a href="azmovies.php?id=1">1 </a>
             <a href="azmovies.php?id=2">2 </a>
@@ -51,18 +52,11 @@
             <a href="azmovies.php?id=X">X </a>
             <a href="azmovies.php?id=Y">Y </a>
             <a href="azmovies.php?id=Z">Z </a>
-        </div>
         <div class="main-div">
         <?php
-        try{
-            $pdo=new PDO('mysql:host=localhost;dbname=ai57', 'root', '1234');
-
-        } catch (PDOException $e) {
-            echo 'Connection failed: ' . $e->getMessage();
-            die();
-        };
         
-
+        $pdo = connect();
+        
         $query="SELECT * FROM movie WHERE title LIKE '".$_GET['id']."%'";
         $result=$pdo->query($query);
         
@@ -70,14 +64,13 @@
         $nFilms = $infoPelis["N"];
         $rFilms = $infoPelis["R"];
 
-
-        echo "<table>";
-        echo "<th>Image</th>";
-        echo "<th>Title</th>";
-        echo "<th>Description</th>";
-        echo "<th>Date</th>";
-        echo "<th>Votes</th>";
-        echo "<th>Weighed score</th>";
+        echo "<table class='table table-hover'>";
+        echo "<th scope='col'>Image</th>";
+        echo "<th scope='col'>Title</th>";
+        echo "<th scope='col'>Description</th>";
+        echo "<th scope='col'>Date</th>";
+        echo "<th scope='col'>Votes</th>";
+        echo "<th scope='col'>Weighed score</th>";
         while ($l=$result->fetch(PDO::FETCH_ASSOC)) {
             $puntuaciones=calculaPuntuaciones($l["id"],$pdo, $nFilms, $rFilms);
             $ponderada=$puntuaciones["ponderada"];
@@ -95,17 +88,17 @@
             echo '<td>'.$l['desc'].'</td>';
             echo '<td>'.$l['date'].'</td>';
             echo '<td style="text-align: center;">'. $numero_votos .'</td>';
-            echo '<td style="text-align: center;">'. $ponderada .'</td>';
+            echo '<td style="text-align: center;">'. $ponderada .'/5</td>';
             
             echo '</tr>';
         }
         echo "</table>";
+
         
         ?>
             
         </div>
-    </section>
+    
 
 </body>
 </html>
-

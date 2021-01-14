@@ -1,13 +1,10 @@
 <?php 
 session_start();
 
-try{
-    $pdo=new PDO('mysql:host=localhost;dbname=ai57', 'root', '1234');
+include("sqlFunctions.php");
+include("phpFunctions.php");
 
-} catch (PDOException $e) {
-    echo 'Connection failed: ' . $e->getMessage();
-    die();
-};
+$pdo = connect();
 
 $id_user = $_SESSION['id'];
 $id_movie = $_POST['id_movie'];

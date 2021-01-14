@@ -2,6 +2,9 @@
 
 session_start(); 
 
+include("sqlFunctions.php");
+include("phpFunctions.php");
+
 if (isset($_POST['user']) && isset($_POST['pass'])){
     function validate ($data){
         $data = trim($data);
@@ -11,6 +14,7 @@ if (isset($_POST['user']) && isset($_POST['pass'])){
     }
     $user = validate($_POST['user']);
     $pass = validate($_POST['pass']);
+
 
     if (empty($user))
     {
@@ -24,13 +28,7 @@ if (isset($_POST['user']) && isset($_POST['pass'])){
     }
     else
     {
-        try{
-            $pdo=new PDO('mysql:host=localhost;dbname=ai57', 'root', '1234');
-
-        } catch (PDOException $e) {
-            echo 'Connection failed: ' . $e->getMessage();
-            die();
-        };
+        $pdo = connect();
 
         $query = "SELECT * FROM users WHERE users.name = '$user' AND users.passwd = '$pass'";
         $result=$pdo->query($query);

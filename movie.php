@@ -9,26 +9,22 @@
     <title>Peliculeo</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" href="images/popcorn.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/f07079c6e3.js" crossorigin="anonymous"></script>
-
+    <?php include("sqlFunctions.php"); ?>
+    <?php include("phpFunctions.php"); ?>
 </head>
 <body>
     <?php include("menu.php"); ?>
     <section id="main">
-        <h1 class="">A-Z Movies</h1>
+        
         <div id="up">
-            <a href="azmovies.php?id=a"> Back </a>
+            <a href="azmovies.php?id=1"> Back </a>
         </div>
         <div class="main-div">
         <?php
 
-        try{
-            $pdo=new PDO('mysql:host=localhost;dbname=ai57', 'root', '1234');
-
-        } catch (PDOException $e) {
-            echo 'Connection failed: ' . $e->getMessage();
-            die();
-        };
+        $pdo = connect();
 
         $id_movie = $_GET['id'];
 
@@ -37,10 +33,12 @@
         $result=$pdo->query($query);
         $l=$result->fetch(PDO::FETCH_ASSOC);
 
-        echo "<h1>".$l['title']."</h1>";
-        echo "<h4>Date: ".$l['date']."</h4>";
-        echo "<p>Synopsis: ".$l['desc']."</p>";
+        echo "<h3>".$l['title']."</h3>";
         echo '<img src="images/'.$l['url_pic'].'">';
+        echo "<br><br>";
+        echo "<p>Date: ".$l['date']."</p>";
+        echo "<p>Synopsis: ".$l['desc']."</p>";
+        
 
 
         $query = "SELECT * FROM moviegenre, genre WHERE moviegenre.movie_id = '$id_movie' AND moviegenre.genre=genre.id";
@@ -48,8 +46,7 @@
         $result=$pdo->query($query);
         echo "<p>Genres:</p>";
         while ($l=$result->fetch(PDO::FETCH_ASSOC)) {        
-            echo "<td>".$l['name']."   <td>";
-            echo "<td>".$l['id']."   <td>";
+            echo "<td><a href='genres.php?id=".$l['id']."'>".$l['name']."\t</a></td>";
         }
         echo "<br><br>";
         
@@ -93,14 +90,19 @@
         $result=$pdo->query($query);
         $l=$result->fetch(PDO::FETCH_ASSOC);
 
-        if (isset($l['score'])){
-            echo "Your rating: ".$l['score'];
-        }
-        echo "<br><br>";
+
         ?>
 
         <form action="rating-handler.php" method="post">
+            <br><br>
             <p>Introduce your rating: </p> 
+
+            <?php
+                if (isset($l['score'])){
+                    echo "<p>Your rating: ".$l['score']."</p>";
+                }
+            ?>
+
 
             <?php if (isset($_GET['error'])) { ?>
      		<p class="error"><?php echo $_GET['error']; ?></p>

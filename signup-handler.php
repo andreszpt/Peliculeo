@@ -1,6 +1,9 @@
 <?php 
 session_start(); 
 
+include("sqlFunctions.php");
+include("phpFunctions.php");
+
 if (isset($_POST['name']) && isset($_POST['age'])
     && isset($_POST['sex']) && isset($_POST['ocupacion'])
     && isset($_POST['picture']) && isset($_POST['pass'])) {
@@ -44,13 +47,7 @@ if (isset($_POST['name']) && isset($_POST['age'])
         exit();
     }
 	else{
-        try{
-            $pdo=new PDO('mysql:host=localhost;dbname=ai57', 'root', '1234');
-
-        } catch (PDOException $e) {
-            echo 'Connection failed: ' . $e->getMessage();
-            die();
-        };
+        $pdo = connect();
 
 	    $query = "SELECT * FROM users WHERE users.name='$name' ";
         $result=$pdo->query($query);
