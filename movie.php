@@ -34,7 +34,14 @@
         $l=$result->fetch(PDO::FETCH_ASSOC);
 
         echo "<h3>".$l['title']."</h3>";
-        echo '<img src="images/'.$l['url_pic'].'">';
+        if(file_exists('images/'.$l["url_pic"]))
+        {
+            echo '<td><img src="images/'.$l['url_pic'].'"></td>';
+        }
+        else
+        {
+            echo '<td><img src="images/Image-Not-Available.png"></td>';
+        }
         echo "<br><br>";
         echo "<p>Date: ".$l['date']."</p>";
         echo "<p>Synopsis: ".$l['desc']."</p>";

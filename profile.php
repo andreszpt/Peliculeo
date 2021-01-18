@@ -23,7 +23,7 @@
 
         <?php
 
-            $pdo = connect();
+            $pdo = connect(); 
 
 
             $query="SELECT * FROM users WHERE id=".$_SESSION['id'];
@@ -33,6 +33,16 @@
         ?>
 
         <ul>
+        <?php
+        if(file_exists('images/'.$l["pic"]))
+        {
+            echo '<td><img src="images/'.$l['pic'].'" width="100px" height="200px"></td>';
+        }
+        else
+        {
+            echo '<td><img src="images/Image-Not-Available.png" width="150px" height="200px"></td>';
+        }
+        ?>
             <li>ID: <?php echo $l['id'] ?></li>
             <li>Name: <?php echo $l['name'] ?></li>
             <li>Age: <?php echo $l['edad'] ?></li>

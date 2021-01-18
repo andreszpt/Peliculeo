@@ -2,7 +2,7 @@
     session_start();
 ?>
 <nav>
-        <a href="#" class="logo">
+        <a href="index.php" class="logo">
             <img src="images/Peliculeo.png">
         </a>
         <ul class="menu">

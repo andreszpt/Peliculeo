@@ -8,6 +8,7 @@
 </head>
 <body>
     <div class="login-box">
+        <br><br>
         <h1>Sign up here</h1>
 
         <?php if (isset($_GET['error'])) { ?>
